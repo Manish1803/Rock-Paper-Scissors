@@ -94,24 +94,29 @@ handleScores();
 function displayWinner(result) {
   setTimeout(() => {
     const userWins = isWinner(result);
-    const aiWins = isWinner(result.reverse());
+    const compWins = isWinner(result.reverse());
 
     if (userWins) {
       resultTitle.innerHTML = `You win<br>
       <span>Against PC</span>`;
+      btnPlayAgain.innerHTML = "Play Again";
       picked[0].classList.toggle("winner");
+
       handleScores("user");
       btnNext.classList.toggle("hidden");
-      btnPlayAgain.innerHTML = "Play Again";
-    } else if (aiWins) {
+    } else if (compWins) {
       resultTitle.innerHTML = `You Lose<br>
       <span>Against PC</span>`;
-      picked[1].classList.toggle("winner");
-      handleScores("comp");
       btnPlayAgain.innerHTML = "Play Again";
+      picked[1].classList.toggle("winner");
+
+      handleScores("comp");
+      btnNext.classList.add("hidden");
     } else {
       resultTitle.innerHTML = `TIE UP`;
       btnPlayAgain.innerHTML = "Replay";
+
+      btnNext.classList.add("hidden");
     }
 
     resultWinner.classList.toggle("hidden");
@@ -122,7 +127,7 @@ function displayWinner(result) {
 function playAgain() {
   gameSec.classList.toggle("hidden");
   resultSec.classList.toggle("hidden");
-  btnNext.classList.toggle("hidden");
+  btnNext.classList.add("hidden");
 
   picked.forEach((pick) => {
     pick.innerHTML = "";
